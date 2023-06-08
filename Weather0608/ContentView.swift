@@ -8,12 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var weatherFetcher: WeatherFetcher
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        ScrollView(.horizontal) {
+            VStack(alignment: .leading) {
+                HStack {
+                    ForEach(weatherFetcher.weatherModel.list) { list in
+                        VStack {
+                            Text(list.weather[0].main.rawValue)
+                            Text(list.weather[0].description.rawValue)
+                        }
+                    }
+                }
+            }
         }
         .padding()
     }
